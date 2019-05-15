@@ -4,7 +4,7 @@
         <attr name="delay_time" format="integer" />
         <attr name="scroll_time" format="integer" />
         <attr name="is_auto_play" format="boolean" />
-        <attr name="title_background" format="color|reference" />
+        <attr name="title_background" format="reference" />
         <attr name="title_textcolor" format="color" />
         <attr name="title_textsize" format="dimension" />
         <attr name="title_height" format="dimension" />
@@ -13,9 +13,10 @@
         <attr name="indicator_margin" format="dimension" />
         <attr name="indicator_drawable_selected" format="reference" />
         <attr name="indicator_drawable_unselected" format="reference" />
-        <attr name="indicator_view_height" format="dimension"/>
-        <attr name="banner_layout" format="reference"/>
-        <attr name="banner_default_image" format="reference"/>
+        <attr name="indicator_view_height" format="dimension" />
+        <attr name="indicator_view_background" format="reference" />
+        <attr name="banner_layout" format="reference" />
+        <attr name="banner_default_image" format="reference" />
         <attr name="image_scale_type" format="enum">
             <enum name="center" value="0" />
             <enum name="center_crop" value="1" />

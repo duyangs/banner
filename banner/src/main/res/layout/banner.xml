@@ -48,7 +48,6 @@
             android:layout_height="wrap_content"
             android:minHeight="@dimen/dp40"
             android:layout_below="@+id/circleIndicator"
-            android:background="#44000000"
             android:orientation="horizontal"
             android:visibility="gone">
 

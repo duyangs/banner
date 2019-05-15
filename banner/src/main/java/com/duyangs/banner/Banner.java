@@ -38,6 +38,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
     private int mIndicatorWidth;
     private int mIndicatorHeight;
     private int mIndicatorViewHeight;
+    private int mIndicatorViewBackground = R.drawable.shape_transparent;
     private int indicatorSize;
     private int bannerBackgroundImage;
     private int bannerStyle = BannerConfig.CIRCLE_INDICATOR;
@@ -49,7 +50,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
     private int mIndicatorUnselectedResId = R.drawable.white_radius;
     private int mLayoutResId = R.layout.banner;
     private int titleHeight;
-    private int titleBackground;
+    private int titleBackground = R.drawable.shape_transparent;
     private int titleTextColor;
     private int titleTextSize;
     private int count = 0;
@@ -117,14 +118,15 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
         mIndicatorWidth = typedArray.getDimensionPixelSize(R.styleable.Banner_indicator_width, indicatorSize);
         mIndicatorHeight = typedArray.getDimensionPixelSize(R.styleable.Banner_indicator_height, indicatorSize);
         mIndicatorMargin = typedArray.getDimensionPixelSize(R.styleable.Banner_indicator_margin, BannerConfig.PADDING_SIZE);
-        mIndicatorViewHeight = typedArray.getDimensionPixelOffset(R.styleable.Banner_indicator_view_height,BannerConfig.TITLE_HEIGHT);
+        mIndicatorViewHeight = typedArray.getDimensionPixelOffset(R.styleable.Banner_indicator_view_height, BannerConfig.TITLE_HEIGHT);
+        mIndicatorViewBackground = typedArray.getResourceId(R.styleable.Banner_indicator_view_background, R.drawable.shape_transparent);
         mIndicatorSelectedResId = typedArray.getResourceId(R.styleable.Banner_indicator_drawable_selected, R.drawable.gray_radius);
         mIndicatorUnselectedResId = typedArray.getResourceId(R.styleable.Banner_indicator_drawable_unselected, R.drawable.white_radius);
         scaleType = typedArray.getInt(R.styleable.Banner_image_scale_type, scaleType);
         delayTime = typedArray.getInt(R.styleable.Banner_delay_time, BannerConfig.TIME);
         scrollTime = typedArray.getInt(R.styleable.Banner_scroll_time, BannerConfig.DURATION);
         isAutoPlay = typedArray.getBoolean(R.styleable.Banner_is_auto_play, BannerConfig.IS_AUTO_PLAY);
-        titleBackground = typedArray.getColor(R.styleable.Banner_title_background, BannerConfig.TITLE_BACKGROUND);
+        titleBackground = typedArray.getResourceId(R.styleable.Banner_title_background, R.drawable.shape_transparent);
         titleHeight = typedArray.getDimensionPixelSize(R.styleable.Banner_title_height, BannerConfig.TITLE_HEIGHT);
         titleTextColor = typedArray.getColor(R.styleable.Banner_title_textcolor, BannerConfig.TITLE_TEXT_COLOR);
         titleTextSize = typedArray.getDimensionPixelSize(R.styleable.Banner_title_textsize, BannerConfig.TITLE_TEXT_SIZE);
@@ -273,9 +275,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
         if (titles.size() != imageUrls.size()) {
             throw new RuntimeException("[Banner] --> The number of titles and images is different");
         }
-        if (titleBackground != -1) {
-            titleView.setBackgroundColor(titleBackground);
-        }
+        titleView.setBackgroundResource(titleBackground);
         if (titleHeight != -1) {
             titleView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, titleHeight));
         }
@@ -299,6 +299,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
                 if (mIndicatorViewHeight != -1) {
                     indicator.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mIndicatorViewHeight));
                 }
+                indicator.setBackgroundResource(mIndicatorViewBackground);
                 indicator.setVisibility(visibility);
                 break;
             case BannerConfig.NUM_INDICATOR:
@@ -601,7 +602,6 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
     }
 
     /**
-     *
      * @param listener
      * @return
      */

@@ -27,12 +27,13 @@
             app:indicator_height="4dp"
             app:indicator_margin="4dp"
             app:indicator_width="20dp"
-            app:indicator_view_height="100dp"/>
+            app:indicator_view_height="100dp"
+            app:indicator_view_background="@drawable/shape_transparent_b"/>
         <com.duyangs.banner.Banner xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/banner3"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            app:title_background="#555CB85C"
+            app:title_background="@drawable/shape_transparent_b"
             app:title_textsize="10sp"
             app:title_textcolor="@android:color/white"
             app:title_height="30dp"/>
