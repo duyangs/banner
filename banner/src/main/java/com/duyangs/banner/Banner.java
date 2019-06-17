@@ -639,7 +639,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
     }
 
     public Banner setViewPagerClipToPadding(boolean clipToPadding){
-        this.viewPagerClipToPadding = viewPagerClipChildren;
+        this.viewPagerClipToPadding = clipToPadding;
         return this;
     }
 
