@@ -60,10 +60,12 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
     private int lastPosition = 1;
     private int scaleType = 1;
     private int pageMargin = 0;
-    private int viewPagerLeftMaagin = 0;
-    private int viewPagerTopMaagin = 0;
-    private int viewPagerRightMaagin = 0;
-    private int viewPagerBottomMaagin = 0;
+    private int viewPagerLeftMargin = 0;
+    private int viewPagerTopMargin = 0;
+    private int viewPagerRightMargin = 0;
+    private int viewPagerBottomMargin = 0;
+    private boolean viewPagerClipToPadding;
+    private boolean viewPagerClipChildren;
     private List<String> titles;
     private List imageUrls;
     private List<View> imageViews;
@@ -441,8 +443,10 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
         viewPager.setCurrentItem(1);
         viewPager.setPageMargin(pageMargin);
         ViewGroup.MarginLayoutParams lp = (MarginLayoutParams) viewPager.getLayoutParams();
-        lp.setMargins(viewPagerLeftMaagin, viewPagerTopMaagin, viewPagerRightMaagin, viewPagerBottomMaagin);
+        lp.setMargins(viewPagerLeftMargin, viewPagerTopMargin, viewPagerRightMargin, viewPagerBottomMargin);
         viewPager.setLayoutParams(lp);
+        viewPager.setClipToPadding(viewPagerClipToPadding);
+        viewPager.setClipChildren(viewPagerClipChildren);
 
         if (gravity != -1)
             indicator.setGravity(gravity);
@@ -627,10 +631,20 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
     }
 
     public Banner setViewPageMargin(@Px int left, @Px int top, @Px int right, @Px int bottom) {
-        this.viewPagerLeftMaagin = left;
-        this.viewPagerTopMaagin = top;
-        this.viewPagerRightMaagin = right;
-        this.viewPagerBottomMaagin = bottom;
+        this.viewPagerLeftMargin = left;
+        this.viewPagerTopMargin = top;
+        this.viewPagerRightMargin = right;
+        this.viewPagerBottomMargin = bottom;
+        return this;
+    }
+
+    public Banner setViewPagerClipToPadding(boolean clipToPadding){
+        this.viewPagerClipToPadding = viewPagerClipChildren;
+        return this;
+    }
+
+    public Banner setViewPagerClipChildren(boolean clipChildren){
+        this.viewPagerClipChildren = clipChildren;
         return this;
     }
 
