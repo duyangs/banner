@@ -2,6 +2,7 @@ package com.duyangs.banner;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.Px;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -59,6 +60,10 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
     private int lastPosition = 1;
     private int scaleType = 1;
     private int pageMargin = 0;
+    private int viewPagerLeftMaagin = 0;
+    private int viewPagerTopMaagin = 0;
+    private int viewPagerRightMaagin = 0;
+    private int viewPagerBottomMaagin = 0;
     private List<String> titles;
     private List imageUrls;
     private List<View> imageViews;
@@ -435,6 +440,10 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
         viewPager.setFocusable(true);
         viewPager.setCurrentItem(1);
         viewPager.setPageMargin(pageMargin);
+        ViewGroup.MarginLayoutParams lp = (MarginLayoutParams) viewPager.getLayoutParams();
+        lp.setMargins(viewPagerLeftMaagin, viewPagerTopMaagin, viewPagerRightMaagin, viewPagerBottomMaagin);
+        viewPager.setLayoutParams(lp);
+
         if (gravity != -1)
             indicator.setGravity(gravity);
         if (isScroll && count > 1) {
@@ -612,8 +621,16 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
         return this;
     }
 
-    public Banner setPageMargin(int pageMargin) {
+    public Banner setPageMargin(@Px int pageMargin) {
         this.pageMargin = pageMargin;
+        return this;
+    }
+
+    public Banner setViewPageMargin(@Px int left, @Px int top, @Px int right, @Px int bottom) {
+        this.viewPagerLeftMaagin = left;
+        this.viewPagerTopMaagin = top;
+        this.viewPagerRightMaagin = right;
+        this.viewPagerBottomMaagin = bottom;
         return this;
     }
 
