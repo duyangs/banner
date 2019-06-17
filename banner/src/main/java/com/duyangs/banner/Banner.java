@@ -58,6 +58,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
     private int gravity = -1;
     private int lastPosition = 1;
     private int scaleType = 1;
+    private int pageMargin = 0;
     private List<String> titles;
     private List imageUrls;
     private List<View> imageViews;
@@ -433,6 +434,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
         viewPager.setAdapter(adapter);
         viewPager.setFocusable(true);
         viewPager.setCurrentItem(1);
+        viewPager.setPageMargin(pageMargin);
         if (gravity != -1)
             indicator.setGravity(gravity);
         if (isScroll && count > 1) {
@@ -607,6 +609,11 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
      */
     public Banner setOnBannerListener(OnBannerListener listener) {
         this.listener = listener;
+        return this;
+    }
+
+    public Banner setPageMargin(int pageMargin) {
+        this.pageMargin = pageMargin;
         return this;
     }
 
