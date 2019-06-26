@@ -590,9 +590,14 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
         if (bannerStyle == BannerConfig.CIRCLE_INDICATOR ||
                 bannerStyle == BannerConfig.CIRCLE_INDICATOR_TITLE ||
                 bannerStyle == BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE) {
-            indicatorImages.get((lastPosition - 1 + count) % count).setImageResource(mIndicatorUnselectedResId);
-            indicatorImages.get((position - 1 + count) % count).setImageResource(mIndicatorSelectedResId);
-            lastPosition = position;
+            try {
+                indicatorImages.get((lastPosition - 1 + count) % count).setImageResource(mIndicatorUnselectedResId);
+                indicatorImages.get((position - 1 + count) % count).setImageResource(mIndicatorSelectedResId);
+                lastPosition = position;
+            }catch (ArithmeticException e){
+                indicatorImages.clear();
+                e.printStackTrace();
+            }
         }
         if (position == 0) position = count;
         if (position > count) position = 1;
