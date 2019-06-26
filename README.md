@@ -3,6 +3,7 @@
 [![](https://jitpack.io/v/duyangs/Banner.svg)](https://jitpack.io/#duyangs/Banner)
 
 
+
 现在的绝大数app都有banner界面，实现循环播放多个广告图片和手动滑动循环等功能。因为ViewPager并不支持循环翻页，
 所以要实现循环还得需要自己去动手，我就把项目中的控件剔了出来，希望大家觉得有用。目前框架可以进行不同样式、不同动画设置，
 以及完善的api方法能满足大部分的需求了。
@@ -86,7 +87,7 @@ public class GlideImageLoader extends ImageLoader {
 - 注意！start()方法必须放到最后执行，点击事件请放到start()前，每次都提交问题问为什么点击没有反应？需要轮播一圈才能点击？点击第一个怎么返回1？麻烦仔细阅读文档。
 
 ```java
---------------------------简单使用-------------------------------
+//--------------------------简单使用-------------------------------
 @Override
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
