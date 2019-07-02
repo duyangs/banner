@@ -79,6 +79,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
     private BannerPagerAdapter adapter;
     private OnPageChangeListener mOnPageChangeListener;
     private OnBannerListener listener;
+    private boolean isCycle = BannerConfig.IS_CYCLE;
 
     private WeakHandler handler = new WeakHandler();
 
@@ -155,6 +156,10 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
         }
     }
 
+    public Banner isCycle(boolean isCycle) {
+        this.isCycle = isCycle;
+        return this;
+    }
 
     public Banner isAutoPlay(boolean isAutoPlay) {
         this.isAutoPlay = isAutoPlay;
@@ -372,6 +377,12 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
             else
                 Log.e(tag, "Please set images loader.");
         }
+        if (!isCycle) {
+            if (imageViews.size() > 1) {
+                imageViews.remove(imageViews.size() - 1);
+                imageViews.remove(0);
+            }
+        }
     }
 
     private void setScaleType(View imageView) {
@@ -440,7 +451,13 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
         }
         viewPager.setAdapter(adapter);
         viewPager.setFocusable(true);
-        viewPager.setCurrentItem(1);
+        if (isCycle) {
+            currentItem = 1;
+        } else {
+            lastPosition = 0;
+            currentItem = 0;
+        }
+        viewPager.setCurrentItem(currentItem);
         viewPager.setPageMargin(pageMargin);
         ViewGroup.MarginLayoutParams lp = (MarginLayoutParams) viewPager.getLayoutParams();
         lp.setMargins(viewPagerLeftMargin, viewPagerTopMargin, viewPagerRightMargin, viewPagerBottomMargin);
@@ -473,14 +490,24 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
         @Override
         public void run() {
             if (count > 1 && isAutoPlay) {
-                currentItem = currentItem % (count + 1) + 1;
+                if (isCycle) {
+                    currentItem = currentItem % (count + 1) + 1;
 //                Log.i(tag, "curr:" + currentItem + " count:" + count);
-                if (currentItem == 1) {
-                    viewPager.setCurrentItem(currentItem, false);
-                    handler.post(task);
-                } else {
-                    viewPager.setCurrentItem(currentItem);
-                    handler.postDelayed(task, delayTime);
+                    if (currentItem == 1) {
+                        viewPager.setCurrentItem(currentItem, false);
+                        handler.post(task);
+                    } else {
+                        viewPager.setCurrentItem(currentItem);
+                        handler.postDelayed(task, delayTime);
+                    }
+                }else {
+                    if (currentItem == 0) {
+                        viewPager.setCurrentItem(currentItem, false);
+                        handler.post(task);
+                    } else {
+                        viewPager.setCurrentItem(currentItem);
+                        handler.postDelayed(task, delayTime);
+                    }
                 }
             }
         }
@@ -554,23 +581,25 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
             mOnPageChangeListener.onPageScrollStateChanged(state);
         }
 //        Log.i(tag,"currentItem: "+currentItem);
-        switch (state) {
-            case 0://No operation
-                if (currentItem == 0) {
-                    viewPager.setCurrentItem(count, false);
-                } else if (currentItem == count + 1) {
-                    viewPager.setCurrentItem(1, false);
-                }
-                break;
-            case 1://start Sliding
-                if (currentItem == count + 1) {
-                    viewPager.setCurrentItem(1, false);
-                } else if (currentItem == 0) {
-                    viewPager.setCurrentItem(count, false);
-                }
-                break;
-            case 2://end Sliding
-                break;
+        if (isAutoPlay && isCycle) {
+            switch (state) {
+                case 0://No operation
+                    if (currentItem == 0) {
+                        viewPager.setCurrentItem(count, false);
+                    } else if (currentItem == count + 1) {
+                        viewPager.setCurrentItem(1, false);
+                    }
+                    break;
+                case 1://start Sliding
+                    if (currentItem == count + 1) {
+                        viewPager.setCurrentItem(1, false);
+                    } else if (currentItem == 0) {
+                        viewPager.setCurrentItem(count, false);
+                    }
+                    break;
+                case 2://end Sliding
+                    break;
+            }
         }
     }
 
@@ -591,10 +620,15 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
                 bannerStyle == BannerConfig.CIRCLE_INDICATOR_TITLE ||
                 bannerStyle == BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE) {
             try {
-                indicatorImages.get((lastPosition - 1 + count) % count).setImageResource(mIndicatorUnselectedResId);
-                indicatorImages.get((position - 1 + count) % count).setImageResource(mIndicatorSelectedResId);
+                if (isCycle) {
+                    indicatorImages.get((lastPosition - 1 + count) % count).setImageResource(mIndicatorUnselectedResId);
+                    indicatorImages.get((position - 1 + count) % count).setImageResource(mIndicatorSelectedResId);
+                }else {
+                    indicatorImages.get(lastPosition).setImageResource(mIndicatorUnselectedResId);
+                    indicatorImages.get(position).setImageResource(mIndicatorSelectedResId);
+                }
                 lastPosition = position;
-            }catch (ArithmeticException e){
+            } catch (ArithmeticException e) {
                 indicatorImages.clear();
                 e.printStackTrace();
             }
@@ -643,12 +677,12 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
         return this;
     }
 
-    public Banner setViewPagerClipToPadding(boolean clipToPadding){
+    public Banner setViewPagerClipToPadding(boolean clipToPadding) {
         this.viewPagerClipToPadding = clipToPadding;
         return this;
     }
 
-    public Banner setViewPagerClipChildren(boolean clipChildren){
+    public Banner setViewPagerClipChildren(boolean clipChildren) {
         this.viewPagerClipChildren = clipChildren;
         return this;
     }
