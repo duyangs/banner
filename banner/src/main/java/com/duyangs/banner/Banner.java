@@ -66,6 +66,10 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
     private int viewPagerBottomMargin = 0;
     private boolean viewPagerClipToPadding;
     private boolean viewPagerClipChildren;
+    private int backgroundLeftMargin = 0;
+    private int backgroundTopMargin = 0;
+    private int backgroundRightMargin = 0;
+    private int backgroundBottomMargin = 0;
     private List<String> titles;
     private List imageUrls;
     private List<View> imageViews;
@@ -287,7 +291,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
 
     private void setBannerBackgroundImageMargin() {
         ViewGroup.MarginLayoutParams lp = (MarginLayoutParams) bannerDefaultImage.getLayoutParams();
-        lp.setMargins(viewPagerLeftMargin + pageMargin, viewPagerTopMargin + pageMargin, viewPagerRightMargin + pageMargin, viewPagerBottomMargin + pageMargin);
+        lp.setMargins(backgroundLeftMargin, backgroundTopMargin, backgroundRightMargin, backgroundBottomMargin);
         bannerDefaultImage.setLayoutParams(lp);
     }
 
@@ -681,6 +685,14 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
         this.viewPagerTopMargin = top;
         this.viewPagerRightMargin = right;
         this.viewPagerBottomMargin = bottom;
+        return this;
+    }
+
+    public Banner setBackgroundMargin(@Px int left, @Px int top, @Px int right, @Px int bottom) {
+        this.backgroundLeftMargin = left;
+        this.backgroundTopMargin = top;
+        this.backgroundRightMargin = right;
+        this.backgroundBottomMargin = bottom;
         return this;
     }
 
