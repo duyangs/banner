@@ -290,9 +290,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
     }
 
     private void setBannerBackgroundImageMargin() {
-        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) bannerDefaultImage.getLayoutParams();
-        lp.setMargins(backgroundLeftMargin, backgroundTopMargin, backgroundRightMargin, backgroundBottomMargin);
-        bannerDefaultImage.setLayoutParams(lp);
+        bannerDefaultImage.setPadding(backgroundLeftMargin, backgroundTopMargin, backgroundRightMargin, backgroundBottomMargin);
     }
 
     private void setTitleStyleUI() {
