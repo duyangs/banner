@@ -287,7 +287,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
 
     private void setBannerBackgroundImageMargin() {
         ViewGroup.MarginLayoutParams lp = (MarginLayoutParams) bannerDefaultImage.getLayoutParams();
-        lp.setMargins(viewPagerLeftMargin, viewPagerTopMargin, viewPagerRightMargin, viewPagerBottomMargin);
+        lp.setMargins(viewPagerLeftMargin + pageMargin, viewPagerTopMargin + pageMargin, viewPagerRightMargin + pageMargin, viewPagerBottomMargin + pageMargin);
         bannerDefaultImage.setLayoutParams(lp);
     }
 
