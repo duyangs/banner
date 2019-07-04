@@ -279,9 +279,16 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
 
     public Banner start() {
         setBannerStyleUI();
+        setBannerBackgroundImageMargin();
         setImageList(imageUrls);
         setData();
         return this;
+    }
+
+    private void setBannerBackgroundImageMargin() {
+        ViewGroup.MarginLayoutParams lp = (MarginLayoutParams) bannerDefaultImage.getLayoutParams();
+        lp.setMargins(viewPagerLeftMargin, viewPagerTopMargin, viewPagerRightMargin, viewPagerBottomMargin);
+        bannerDefaultImage.setLayoutParams(lp);
     }
 
     private void setTitleStyleUI() {
@@ -500,7 +507,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
                         viewPager.setCurrentItem(currentItem);
                         handler.postDelayed(task, delayTime);
                     }
-                }else {
+                } else {
                     if (currentItem == 0) {
                         viewPager.setCurrentItem(currentItem, false);
                         handler.post(task);
@@ -623,7 +630,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
                 if (isCycle) {
                     indicatorImages.get((lastPosition - 1 + count) % count).setImageResource(mIndicatorUnselectedResId);
                     indicatorImages.get((position - 1 + count) % count).setImageResource(mIndicatorSelectedResId);
-                }else {
+                } else {
                     indicatorImages.get(lastPosition).setImageResource(mIndicatorUnselectedResId);
                     indicatorImages.get(position).setImageResource(mIndicatorSelectedResId);
                 }
